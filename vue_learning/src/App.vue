@@ -1,8 +1,10 @@
 <template>
   <div id="app">
-    <Header/>
-    <Form/>
-    <TaskItem/>
+    <div><Header /></div>
+    <div id="item">
+      <div class="form"><Form /></div>
+      <div class="task-item"><TaskItem /></div>
+    </div>
   </div>
 </template>
 
@@ -14,12 +16,25 @@ import TaskItem from './components/TaskItem.vue'
 export default {
   name: 'app',
   components: {
-    Header,Form,
+    Header,
+    Form,
     TaskItem
   }
 }
-
 </script>
 
-<style lang="css">
+<style>
+body {
+  font-family: Arial, sans-serif;
+}
+
+#item {
+  display: flex;
+}
+.form {
+  margin: 20px;
+}
+.task-item {
+  margin: 20px;
+}
 </style>
