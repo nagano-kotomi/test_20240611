@@ -16,10 +16,9 @@
         <button v-on:click="createTask">作成</button>
       </div>
     </div>
-  </template>
+</template>
 
-
-  <script>
+<script>
   import api from "@/api";
   export default {
    data() {
@@ -55,4 +54,4 @@
    },
   }
  };
-  </script>
+</script>

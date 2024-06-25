@@ -1,8 +1,8 @@
 <template>
   <div id="app">
-    <Header/>
-    <Form/>
-    <TaskItem/>
+    <div><Header/></div>
+    <div class="left"><Form/></div>
+    <div class="left"><TaskItem/></div>
   </div>
 </template>
 
@@ -21,5 +21,12 @@ export default {
 
 </script>
 
-<style lang="css">
+<style>
+body {
+  font-family: Arial, sans-serif;
+}
+
+.left{
+  float: left;
+}
 </style>
