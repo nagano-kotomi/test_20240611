@@ -19,7 +19,7 @@
         v-model="inputDetail"
       ></textarea>
     </div>
-    <div class="item">
+    <div class="button">
       <button v-on:click="createTask">作成</button>
     </div>
   </div>
@@ -51,17 +51,27 @@ export default {
         result = await api.post('/tasks', {
           title: this.inputTitle,
           period: this.inputPeriod,
-          detail: this.inputDetail
+          detail: this.inputDetail,
         })
       } catch (err) {
         this.apiError = true
         return
       }
       this.apiError = false
-    }
+    },
   },
   onUpdate() {
     this.$emit('fetchTasks')
   }
 }
 </script>
+
+<style>
+.item{
+  margin-bottom: 5px;
+}
+
+.button{
+  padding-left: 178px;
+}
+</style>
