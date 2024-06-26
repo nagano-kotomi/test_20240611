@@ -5,6 +5,7 @@
       <div v-if="error">エラーが発生しました。</div>
       <div v-else>
         <div class="task" v-for="task in tasks" :key="task.id">
+          <!-- <div>id：{{ task.id }}</div> -->
           <div>タイトル：{{ task.title }}</div>
           <div>詳細：{{ task.period }}</div>
           <div>完了期間：{{ task.detail }}</div>
@@ -45,25 +46,26 @@ export default {
       }
     },
     async deleteTask(task) {
-      console.log('deleteTask', task._id)
-      try {
-        await api.delete(`/tasks/:id`, {
-          _id: task._id
-        })
-        // 削除後にタスクを再読み込みする
-        await this.fetchTasks()
-      } catch (err) {
-        console.error('タスクの削除に失敗しました:', err)
-      }
-    }
+     console.log('deleteTask', task._id)
+     try {
+       await api.delete(`/tasks/${task._id}`)
+       // 削除後にタスクを再読み込みする
+       await this.fetchTasks()
+     } catch (err) {
+       console.error('タスクの削除に失敗しました:', err)
+     }
+   }
+    
   }
 }
 </script>
+
 <style>
 .task {
-  display: block;
-  border: 1px solid #ccc;
-  margin-bottom: 10px;
+  display: inline-block;
+  border: 2px double #ccc;
+  margin-bottom: 5px;
+  margin-right: 5px;
   padding: 10px;
 }
 </style>
