@@ -53,6 +53,7 @@ export default {
           period: this.inputPeriod,
           detail: this.inputDetail,
         })
+        window.location.reload()
       } catch (err) {
         this.apiError = true
         return
