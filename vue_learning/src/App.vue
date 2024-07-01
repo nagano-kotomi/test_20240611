@@ -2,8 +2,8 @@
   <div id="app">
     <div><Header /></div>
     <div id="item">
-      <div class="form"><Form /></div>
-      <div class="task-item"><TaskItem /></div>
+      <div class="form"><Form @task-created="refreshTasks"/></div>
+      <div class="task-item"><TaskItem ref="taskItem"/></div>
     </div>
   </div>
 </template>
@@ -19,6 +19,12 @@ export default {
     Header,
     Form,
     TaskItem
+  },
+  methods: {
+    refreshTasks() {
+      this.$refs.taskItem.fetchTasks()
+      this.$refs.taskItem.sortTasksByDetailDate()
+    }
   }
 }
 </script>
@@ -30,11 +36,24 @@ body {
 
 #item {
   display: flex;
+  flex-direction: row;
 }
 .form {
   margin: 20px;
 }
 .task-item {
   margin: 20px;
+}
+
+@media (max-width: 600px){
+  #item{
+    flex-direction: column;
+  }
+  .form{
+    margin: 20px auto;
+  }
+  .task-item {
+    margin: 20px;
+  }
 }
 </style>
