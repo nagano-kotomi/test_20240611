@@ -4,23 +4,25 @@
     <div v-if="validationError">タイトルを入力してください</div>
     <div v-if="apiError">サーバーでエラーが発生しました</div>
     <div class="item">
-      <input type="text" name="title" placeholder="タイトル" v-model="inputTitle" />
+      <div class="text" style="width:210px; height:20px">
+        タスク入力
+      </div>
+      <textarea type="text" name="title" placeholder="タイトル" style="width:210px; height:50px" v-model="inputTitle" ></textarea>
     </div>
     <div class="item">
-      <input type="text" name="period" placeholder="詳細" v-model="inputPeriod" />
+      <textarea type="text" name="period" placeholder="詳細" style="width:210px; height:50px" v-model="inputPeriod"></textarea>
     </div>
     <div class="item">
-      <textarea
+      完了期間
+      <input
         name="detail"
-        placeholder="完了期間"
         id
-        cols="30"
-        rows="10"
+        type="datetime-local"
         v-model="inputDetail"
-      ></textarea>
+      ></input>
     </div>
-    <div class="button">
-      <button v-on:click="createTask">作成</button>
+    <div class="right">
+      <button class="button" v-on:click="createTask">作成</button>
     </div>
   </div>
 </template>
@@ -53,7 +55,11 @@ export default {
           period: this.inputPeriod,
           detail: this.inputDetail,
         })
-        window.location.reload()
+        // window.location.reload()
+        this.$emit('task-created')
+        this.inputTitle = ''
+        this.inputPeriod = ''
+        this.inputDetail = ''
       } catch (err) {
         this.apiError = true
         return
@@ -73,6 +79,20 @@ export default {
 }
 
 .button{
-  padding-left: 178px;
+  display: inline-block;
+  text-decoration: none;
+  background: #5a9c9c;/*ボタン色*/
+  color: #FFF;
+  border-bottom: solid 4px #627295;
+  border-radius: 3px;
+  }
+.text{
+  text-align: center;
+  color: rgb(42, 106, 235);
+  border: 2px double cadetblue;
+  margin-bottom: 10px;
+}
+.right{
+  padding-left: 172px;
 }
 </style>
