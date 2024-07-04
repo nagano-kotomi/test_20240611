@@ -10,15 +10,15 @@
       <textarea type="text" name="title" placeholder="タイトル" style="width:210px; height:50px" v-model="inputTitle" ></textarea>
     </div>
     <div class="item">
-      <textarea type="text" name="period" placeholder="詳細" style="width:210px; height:50px" v-model="inputPeriod"></textarea>
+      <textarea type="text" name="detail" placeholder="詳細" style="width:210px; height:50px" v-model="inputDetail"></textarea>
     </div>
     <div class="item">
       完了期間
       <input
-        name="detail"
+        name="period"
         id
         type="datetime-local"
-        v-model="inputDetail"
+        v-model="inputPeriod"
       ></input>
     </div>
     <div class="right">
@@ -33,8 +33,8 @@ export default {
   data() {
     return {
       inputTitle: '',
-      inputPeriod: '',
       inputDetail: '',
+      inputPeriod: '',
       validationError: false, //条件判別
       apiError: false
     }
@@ -52,16 +52,17 @@ export default {
         //APIリクエスト
         result = await api.post('/tasks', {
           title: this.inputTitle,
-          period: this.inputPeriod,
           detail: this.inputDetail,
+          period: this.inputPeriod,
         })
-        // window.location.reload()
+        await api.get('/tasks')
         this.$emit('task-created')
         this.inputTitle = ''
-        this.inputPeriod = ''
         this.inputDetail = ''
+        this.inputPeriod = ''
       } catch (err) {
         this.apiError = true
+        console.error('API リクエストでエラーが発生しました:', err.message)
         return
       }
       this.apiError = false

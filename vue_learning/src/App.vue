@@ -23,7 +23,6 @@ export default {
   methods: {
     refreshTasks() {
       this.$refs.taskItem.fetchTasks()
-      this.$refs.taskItem.sortTasksByDetailDate()
     }
   }
 }

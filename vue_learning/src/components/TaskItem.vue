@@ -7,8 +7,8 @@
         <div class="task" v-for="task in tasks" :key="task.id">
           <!-- <div>id：{{ task.id }}</div> -->
           <div>タイトル：{{ task.title }}</div>
-          <div>詳細　　：{{ task.period }}</div>
-          <div>完了期間：{{ task.detail }}</div>
+          <div>詳細　　：{{ task.detail }}</div>
+          <div>完了期間：{{ task.period }}</div>
           <div class="deleteright">
             <button id="deletebutton" @click="deleteTask(task)">削除</button>
           </div>
@@ -25,7 +25,7 @@ import api from '@/api'
 export default {
   data() {
     return {
-      tasks: ref([]),
+      tasks: [],
       loading: true,
       error: null
     }
@@ -38,7 +38,6 @@ export default {
       try {
         const response = await api.get('/tasks')
         this.tasks = response.data
-        this.sortTasksByDetailDate()
       } catch (err) {
         console.error('データの取得に失敗しました:', err)
         this.error = 'データの取得に失敗しました。'
@@ -46,18 +45,15 @@ export default {
         this.loading = false
       }
     },
-    sortTasksByDetailDate(){ //日付順に並び変え
-      this.tasks.sort((a, b) => new Date(a.detail) - new Date(b.detail))
-    },
     async deleteTask(task) {
-     console.log('deleteTask', task._id)
+      console.log('deleteTask', task.id)
      try {
-       await api.delete(`/tasks/${task._id}`)
-       // 削除後にタスクを再読み込みする
-       await this.fetchTasks()
-     } catch (err) {
-       console.error('タスクの削除に失敗しました:', err)
-     }
+       await api.delete(`/tasks/${task.id}`)
+        // 削除後にタスクを再読み込みする
+        await this.fetchTasks()
+      } catch (err) {
+        console.error('タスクの削除に失敗しました:', err.message)
+      }
    }
     
   }
